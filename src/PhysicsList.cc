@@ -38,10 +38,6 @@ PhysicsList::~PhysicsList()
 void PhysicsList::ConstructParticle()
 {
 	emPhysicsList->ConstructParticle();
-  /*decPhysicsList->ConstructParticle();
-    // ions
-  G4IonConstructor iConstructor;
-  iConstructor.ConstructParticle();*/
 }
 
 void PhysicsList::ConstructProcess()
@@ -49,13 +45,7 @@ void PhysicsList::ConstructProcess()
 	emPhysicsList->ConstructProcess();
 	
   // transportation
-  //
   AddTransportation();
-/*
-  // electromagnetic physics list
-  //
-  emPhysicsList->ConstructProcess();
-  em_config.AddModels();*/
 }
 
 void PhysicsList::SetCuts()

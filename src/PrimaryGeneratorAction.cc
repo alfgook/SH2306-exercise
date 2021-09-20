@@ -20,13 +20,29 @@
 // Define
 PrimaryGeneratorAction::PrimaryGeneratorAction()     
 : G4VUserPrimaryGeneratorAction(),
-  fParticleGun(0)
-  { 
+fParticleGun(0)
+{ 
   
   G4int nofParticles = 1;
   fParticleGun  = new G4ParticleGun(nofParticles);
   
-  }
+
+   G4ThreeVector position(0, 0, -25.*cm);
+   G4double energy = 8.*MeV;
+   G4ThreeVector direction(0, 0, 1);
+  
+  // Default particle kinematics
+  G4String particleName = "gamma";
+  G4ParticleTable* particleTable = G4ParticleTable::GetParticleTable();
+  G4ParticleDefinition* particle
+    = particleTable->FindParticle(particleName);
+
+  fParticleGun->SetParticleDefinition(particle);
+  fParticleGun->SetParticleMomentumDirection(direction);
+  fParticleGun->SetParticleEnergy(energy);
+  fParticleGun->SetParticlePosition(position);
+
+}
 
 
 PrimaryGeneratorAction::~PrimaryGeneratorAction()
@@ -38,25 +54,10 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* event)
   //This "function" is called at the begining of ecah event
   // Monochromatic pencil like neutron beam
 
-	 
-  
-   G4String particleName = "gamma";
-   G4ThreeVector position(0, 0, -25.*cm);
-   G4double energy = 8.*MeV;
-   G4ThreeVector direction(0, 0, 1);
-  
-  // Default particle kinematics
-  G4ParticleTable* particleTable = G4ParticleTable::GetParticleTable();
-  G4ParticleDefinition* particle
-    = particleTable->FindParticle(particleName);
-  fParticleGun->SetParticleDefinition(particle);
-  fParticleGun->SetParticleMomentumDirection(direction);
-  fParticleGun->SetParticleEnergy(energy);
-  fParticleGun->SetParticlePosition(position);
   fParticleGun->GeneratePrimaryVertex(event);
 
   
-  }
+}
 
   
 

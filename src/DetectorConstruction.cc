@@ -129,7 +129,6 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
   G4VisAttributes *WorldVisAtt = new G4VisAttributes();
   WorldVisAtt->SetForceWireframe(true);
   WorldLV->SetVisAttributes(WorldVisAtt);
-  //WorldLV->SetVisAttributes(G4VisAttributes::GetInvisible());
 
   // ========== Cylinder representing a detector crystal =======
 
@@ -157,7 +156,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
                         "HousingLV");            //its name
 
 
-  G4VPhysicalVolume* HousingPV =
+  /*G4VPhysicalVolume* HousingPV =*/
     new G4PVPlacement(0,                     //no rotation
                       G4ThreeVector(0,0,0),  //at (0,0,0)
                       HousingLV,            //its logical volume
@@ -177,7 +176,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
                         "VacuumLV");            //its name
 
 
-  G4VPhysicalVolume* VacuumPV =
+  /*G4VPhysicalVolume* VacuumPV =*/
     new G4PVPlacement(0,                     //no rotation
                       G4ThreeVector(0,0,0),  //at (0,0,0)
                       VacuumLV,            //its logical volume
@@ -187,6 +186,8 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
                       0,                     //copy number
                       checkOverlaps);        //overlaps checking
 
+  G4VisAttributes *VacVisAtt = new G4VisAttributes(G4Color::Black());
+  VacuumLV->SetVisAttributes(VacVisAtt);
   // crystal
 
   G4Tubs* solidDetector = new G4Tubs("DetectorSolid",0.,detector_radius,0.5*detector_length,0.,360.*deg);
@@ -198,7 +199,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
                         "DetectorLV");            //its name
 
 
-  G4VPhysicalVolume* DetectorPV =
+  /*G4VPhysicalVolume* DetectorPV =*/
     new G4PVPlacement(0,                     //no rotation
                       G4ThreeVector(0,0,0),  //at (0,0,0)
                       DetectorLV,            //its logical volume
@@ -208,6 +209,8 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
                       0,                     //copy number
                       checkOverlaps);        //overlaps checking
 
+  G4VisAttributes *GeVisAtt = new G4VisAttributes(G4Color::Red());
+  DetectorLV->SetVisAttributes(GeVisAtt);
   //====================================================
 
   SetupDetectors();

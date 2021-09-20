@@ -44,7 +44,6 @@ set(EXAMPLEED_SCRIPTS
   init.mac
   init_vis.mac
   icons.mac
-  run.mac
   run.png
   vis.mac
   testRun.mac
