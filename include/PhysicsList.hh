@@ -24,6 +24,8 @@ private:
   G4EmConfigurator em_config;
 
   G4VPhysicsConstructor*               emPhysicsList;
+  G4VPhysicsConstructor*               fParticleList;
+  G4VPhysicsConstructor*               fRaddecayList;
 
 };
 #endif
