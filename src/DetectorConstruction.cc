@@ -137,57 +137,6 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
   G4double detector_radius = 40.*mm; // 
   G4double detector_length = 90.*mm; //
 
-  G4double housing_thickness = 1.*mm;
-  G4double housing_spacing = 1.*mm;
-
-  G4double housing_radius_out = detector_radius + housing_thickness + housing_spacing;
-  G4double housing_length_out = detector_length + 2.*(housing_thickness + housing_spacing);
-
-  G4double housing_radius_in = detector_radius + housing_spacing;
-  G4double housing_length_in = detector_length + 2.*(housing_spacing);
-
-  // housing
-
-  G4Tubs* solidHousing = new G4Tubs("solidHousing",0.,housing_radius_out,0.5*housing_length_out,0.,360.*deg);
-
-  G4LogicalVolume* HousingLV = 
-    new G4LogicalVolume(solidHousing,          //its solid
-                        fAlu,           //its material
-                        "HousingLV");            //its name
-
-
-  /*G4VPhysicalVolume* HousingPV =*/
-    new G4PVPlacement(0,                     //no rotation
-                      G4ThreeVector(0,0,0),  //at (0,0,0)
-                      HousingLV,            //its logical volume
-                      "HousingPV",          //its name
-                      WorldLV,               //its mother volume
-                      false,                 //no boolean operation
-                      0,                     //copy number
-                      checkOverlaps);        //overlaps checking
-
-  // detector vacuum
-
-  G4Tubs* solidVacuum = new G4Tubs("solidVacuum",0.,housing_radius_in,0.5*housing_length_in,0.,360.*deg);
-
-  G4LogicalVolume* VacuumLV = 
-    new G4LogicalVolume(solidVacuum,          //its solid
-                        galactic,           //its material
-                        "VacuumLV");            //its name
-
-
-  /*G4VPhysicalVolume* VacuumPV =*/
-    new G4PVPlacement(0,                     //no rotation
-                      G4ThreeVector(0,0,0),  //at (0,0,0)
-                      VacuumLV,            //its logical volume
-                      "VacuumPV",          //its name
-                      HousingLV,               //its mother volume
-                      false,                 //no boolean operation
-                      0,                     //copy number
-                      checkOverlaps);        //overlaps checking
-
-  G4VisAttributes *VacVisAtt = new G4VisAttributes(G4Color::Black());
-  VacuumLV->SetVisAttributes(VacVisAtt);
   // crystal
 
   G4Tubs* solidDetector = new G4Tubs("DetectorSolid",0.,detector_radius,0.5*detector_length,0.,360.*deg);
@@ -204,7 +153,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
                       G4ThreeVector(0,0,0),  //at (0,0,0)
                       DetectorLV,            //its logical volume
                       "DetectorPV",          //its name
-                      VacuumLV,               //its mother volume
+                      WorldLV,               //its mother volume
                       false,                 //no boolean operation
                       0,                     //copy number
                       checkOverlaps);        //overlaps checking
