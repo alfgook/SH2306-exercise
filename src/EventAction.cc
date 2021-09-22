@@ -20,8 +20,6 @@
 #include "G4THitsMap.hh"
 #include "g4root.hh"
 
-#include "RandGauss.h"
-
 
 EventAction::EventAction()
 {
@@ -67,7 +65,19 @@ void EventAction::EndOfEventAction(const G4Event* evt)
     //G4cout << "edep = " << edep << G4endl;
   }
   //G4cout << "total_edep = " << total_edep << G4endl;
-  if(!total_edep) total_edep = -1.*MeV; // set it negative to not be included in the first bin, but in the underflow bin 
+  if(!total_edep) {
+    total_edep = -1.*MeV; // set it negative to not be included in the first bin, but in the underflow bin
+  } else {
+    const G4double aRes = 5.87E-04;
+    const G4double bRes = 3.95E-04;
+    const G4double cRes = 7.47;
+    G4double FWHM = aRes + bRes*sqrt(total_edep + cRes*total_edep*total_edep)*MeV;
+    G4double sigmaE = FWHM/2.355;
+
+    //G4cout << "total_edep = " << total_edep << G4endl;
+    total_edep += G4RandGauss::shoot(0.,sigmaE);
+    //G4cout << "total_edep smeared = " << total_edep << G4endl;
+  }
 
 
   G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();

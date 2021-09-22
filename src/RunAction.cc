@@ -21,7 +21,7 @@ RunAction::RunAction()
   G4cout << "Using " << analysisManager->GetType() << G4endl;
   analysisManager->SetFileName("OutPut"); //default filename, can be changed by macro command
 
-  analysisManager->CreateH1("Edep","Edep",820,0.,8.2); // 10 keV binning
+  analysisManager->CreateH1("Edep","Edep",3*8200,0.,8.2); // 1 keV binning
 }
 
 
