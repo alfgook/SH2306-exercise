@@ -20,7 +20,7 @@
 #include "G4THitsMap.hh"
 #include "g4root.hh"
 
-
+#include "RandGauss.h"
 
 
 EventAction::EventAction()
