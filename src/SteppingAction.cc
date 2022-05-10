@@ -18,7 +18,6 @@ SteppingAction::SteppingAction(EventAction* evAct)
 // SteppingAction::SteppingAction(EventAction* evAct):
 // eventAction(evAct)
 {
- 
      
 }
 
@@ -38,6 +37,9 @@ void SteppingAction::UserSteppingAction(const G4Step* aStep)
  // Here implement what you want the 
  // simulation to do at every particle 
  // step 
- /////////////////////////////////////////////    
+ /////////////////////////////////////////////  
+
+    G4Track *track = aStep->GetTrack();
+    if(track->GetGlobalTime()>1*s) track->SetTrackStatus(fStopAndKill);
     
 }  
